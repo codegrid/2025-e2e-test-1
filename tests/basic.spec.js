@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('基本的なページ読み込みテスト', () => {
   const pages = [
-    { name: 'ホームページ', url: '/', title: 'Playwrightデモ - ホーム' },
+    { name: 'ホームページ', url: '/', title: 'Playwrightデモ - HOME' },
     { name: 'Aboutページ', url: '/about.html', title: 'Playwrightデモ - About' },
     { name: 'Contactページ', url: '/contact.html', title: 'Playwrightデモ - Contact' }
   ];
@@ -50,6 +50,6 @@ test.describe('基本的なページ読み込みテスト', () => {
     
     // ホームページへのリンクをクリック
     await page.click('a[href="index.html"]');
-    await expect(page).toHaveTitle('Playwrightデモ - ホーム');
+    await expect(page).toHaveTitle('Playwrightデモ - HOME');
   });
 });
