@@ -1,54 +1,60 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playwrightデモ - ホーム</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">ホーム</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html" class="active">ホーム</a>
+          </li>
+          <li>
+            <a href="about.html">About</a>
+          </li>
+          <li>
+            <a href="contact.html">Contact</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <h1>Playwrightデモアプリケーション</h1>
-        <p>このアプリケーションは、Playwrightを使ったE2Eテストのデモ用に作成されました。</p>
+      <h1>Playwrightデモアプリケーション</h1>
+      <p>このアプリケーションは、Playwrightを使ったE2Eテストのデモ用に作成されました。</p>
 
-        <section class="tab-container">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="tab1">タブ1</button>
-                <button class="tab-button" data-tab="tab2">タブ2</button>
-                <button class="tab-button" data-tab="tab3">タブ3</button>
-            </div>
+      <section class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="tab1">タブ1</button>
+          <button class="tab-button" data-tab="tab2">タブ2</button>
+          <button class="tab-button" data-tab="tab3">タブ3</button>
+        </div>
 
-            <div class="tab-content">
-                <div id="tab1" class="tab-panel active">
-                    <h3>タブ1の内容</h3>
-                    <p>これは最初のタブの内容です。シンプルなタブ切り替え機能のデモンストレーションです。</p>
-                </div>
-                <div id="tab2" class="tab-panel">
-                    <h3>タブ2の内容</h3>
-                    <p>これは2番目のタブの内容です。JavaScriptでタブの切り替えが実装されています。</p>
-                </div>
-                <div id="tab3" class="tab-panel">
-                    <h3>タブ3の内容</h3>
-                    <p>これは3番目のタブの内容です。Playwrightでこの機能をテストできます。</p>
-                </div>
-            </div>
-        </section>
+        <div class="tab-content">
+          <div id="tab1" class="tab-panel active">
+            <h3>タブ1の内容</h3>
+            <p>これは最初のタブの内容です。シンプルなタブ切り替え機能のデモンストレーションです。</p>
+          </div>
+          <div id="tab2" class="tab-panel">
+            <h3>タブ2の内容</h3>
+            <p>これは2番目のタブの内容です。JavaScriptでタブの切り替えが実装されています。</p>
+          </div>
+          <div id="tab3" class="tab-panel">
+            <h3>タブ3の内容</h3>
+            <p>これは3番目のタブの内容です。Playwrightでこの機能をテストできます。</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Playwrightデモアプリ</p>
+      <p>&copy; 2025 Playwrightデモアプリ</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

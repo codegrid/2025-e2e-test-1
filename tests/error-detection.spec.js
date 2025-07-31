@@ -1,34 +1,34 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require("@playwright/test");
 
-test.describe('JavaScriptエラー検出テスト', () => {
-  test('正常なscript.jsでエラーが発生しないこと', async ({page}) => {
+test.describe("JavaScriptエラー検出テスト", () => {
+  test("正常なscript.jsでエラーが発生しないこと", async ({ page }) => {
     const errors = [];
 
     // コンソールエラーを収集
-    page.on('console', msg => {
-      if (msg.type() === 'error') {
+    page.on("console", (msg) => {
+      if (msg.type() === "error") {
         errors.push(msg.text());
       }
     });
 
     // ページエラーを収集
-    page.on('pageerror', error => {
+    page.on("pageerror", (error) => {
       errors.push(error.message);
     });
 
     // 各ページでエラーがないことを確認
     const pages = [
-      {name: 'ホーム', url: '/'},
-      {name: 'About', url: '/about.html'},
-      {name: 'Contact', url: '/contact.html'}
+      { name: "ホーム", url: "/" },
+      { name: "About", url: "/about.html" },
+      { name: "Contact", url: "/contact.html" },
     ];
 
-    for (const { url} of pages) {
+    for (const { url } of pages) {
       await page.goto(url);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState("networkidle");
 
       // タブをクリックしてJavaScriptを実行
-      const tabButtons = page.locator('.tab-button');
+      const tabButtons = page.locator(".tab-button");
       const tabCount = await tabButtons.count();
 
       for (let i = 0; i < tabCount; i++) {
@@ -40,7 +40,7 @@ test.describe('JavaScriptエラー検出テスト', () => {
     // エラーがないことを確認
     expect(errors).toHaveLength(0);
     if (errors.length > 0) {
-      console.log('検出されたエラー:', errors);
+      console.log("検出されたエラー:", errors);
     }
   });
 });

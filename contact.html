@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playwrightデモ - Contact</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">ホーム</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html">ホーム</a>
+          </li>
+          <li>
+            <a href="about.html">About</a>
+          </li>
+          <li>
+            <a href="contact.html" class="active">Contact</a>
+          </li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <h1>お問い合わせ</h1>
-        <p>このデモに関するご質問やフィードバックをお待ちしております。</p>
+      <h1>お問い合わせ</h1>
+      <p>このデモに関するご質問やフィードバックをお待ちしております。</p>
 
-        <section class="contact-form">
-            <h2>フォーム</h2>
-            <form id="contact-form">
-                <div class="form-group">
-                    <label for="name">お名前</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">メッセージ</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit">送信</button>
-            </form>
-        </section>
+      <section class="contact-form">
+        <h2>フォーム</h2>
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message">メッセージ</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit">送信</button>
+        </form>
+      </section>
 
-        <section class="tab-container">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="method1">メール</button>
-                <button class="tab-button" data-tab="method2">電話</button>
-                <button class="tab-button" data-tab="method3">その他</button>
-            </div>
+      <section class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" data-tab="method1">メール</button>
+          <button class="tab-button" data-tab="method2">電話</button>
+          <button class="tab-button" data-tab="method3">その他</button>
+        </div>
 
-            <div class="tab-content">
-                <div id="method1" class="tab-panel active">
-                    <h3>メールでのお問い合わせ</h3>
-                    <p>上記のフォームからお気軽にお問い合わせください。</p>
-                </div>
-                <div id="method2" class="tab-panel">
-                    <h3>お電話でのお問い合わせ</h3>
-                    <p>これはデモアプリケーションのため、実際の電話番号はありません。</p>
-                </div>
-                <div id="method3" class="tab-panel">
-                    <h3>その他のお問い合わせ方法</h3>
-                    <p>GitHubのissueやPull Requestも歓迎です。</p>
-                </div>
-            </div>
-        </section>
+        <div class="tab-content">
+          <div id="method1" class="tab-panel active">
+            <h3>メールでのお問い合わせ</h3>
+            <p>上記のフォームからお気軽にお問い合わせください。</p>
+          </div>
+          <div id="method2" class="tab-panel">
+            <h3>お電話でのお問い合わせ</h3>
+            <p>これはデモアプリケーションのため、実際の電話番号はありません。</p>
+          </div>
+          <div id="method3" class="tab-panel">
+            <h3>その他のお問い合わせ方法</h3>
+            <p>GitHubのissueやPull Requestも歓迎です。</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Playwrightデモアプリ</p>
+      <p>&copy; 2025 Playwrightデモアプリ</p>
     </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
