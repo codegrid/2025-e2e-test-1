@@ -4,7 +4,7 @@
 
 ## 📋 概要
 
-3つのシンプルなHTMLページ（ホーム、About、Contact）とタブ切り替え機能を持つWebアプリケーションで、Playwrightの基本的な使い方を学ぶことができます。
+3つのシンプルなHTMLページ（ホーム、このサイトについて、お問い合わせ）とタブ切り替え機能を持つWebアプリケーションで、Playwrightの基本的な使い方を学ぶことができます。
 
 ## 🚀 技術スタック
 
@@ -17,19 +17,18 @@
 
 ```
 playwright-demo/
-├── index.html                  # ホームページ
-├── about.html                  # Aboutページ  
-├── contact.html                # Contactページ
-├── styles.css                  # 共通スタイル
-├── script.js                   # 正常なJavaScript
-├── package.json                # npm設定
-├── playwright.config.js        # Playwright設定
-├── tests/                      # テストファイル
-│   ├── basic.spec.js           # 基本的なページ読み込みテスト
-│   ├── error-detection.spec.js # JavaScriptエラーが検出されないことを確認するテスト
-│   └── tabs.spec.js            # タブ機能テスト
+├── index.html                     # ホームページ
+├── about.html                     # このサイトについてページ  
+├── contact.html                   # お問い合わせページ
+├── styles.css                     # 共通スタイル
+├── script.js                      # タブ切り替え機能のJavaScript
+├── package.json                   # npm設定
+├── playwright.config.js           # Playwright設定
+├── tests/                         # テストファイル
+│   ├── page-load-errors.spec.js   # ページ読み込み時のエラーチェック
+│   └── tab-interaction-errors.spec.js # タブ操作時のエラーチェック
 └── .github/workflows/
-    └── playwright.yml          # GitHub Actions設定
+    └── playwright.yml             # GitHub Actions設定（日本語コメント付き）
 ```
 
 ## 🛠️ セットアップ
@@ -82,53 +81,43 @@ npm run test:debug
 
 ## 📝 実装されているテスト
 
-### 1. 基本的なページ読み込みテスト (`basic.spec.js`)
-- 各ページが正常に読み込まれることを確認
-- ページタイトルの確認
-- 基本的なHTML要素の存在確認
-- ナビゲーションリンクの動作確認
+### 1. ページ読み込み時のエラーチェック (`page-load-errors.spec.js`)
+- 各ページ（ホーム、このサイトについて、お問い合わせ）の読み込み時にJavaScriptエラーが発生しないことを確認
+- コンソールエラーとページエラーの両方を検出
 
-### 2. タブ機能テスト (`tabs.spec.js`)
-- タブ切り替え機能の動作確認
-- アクティブタブの状態確認
-- タブパネルの表示切り替え確認
-- テストヘルパー関数の動作確認
-
-### 3. エラー検出テスト (`error-detection.spec.js`)
-- JavaScriptエラーが発生しないことの確認
+### 2. タブ操作時のエラーチェック (`tab-interaction-errors.spec.js`)
+- 各ページでタブをクリックした際にエラーが発生しないことを確認
+- すべてのタブボタンを順番にクリックしてエラーをチェック
 
 ## 🔄 GitHub Actions CI
 
 `.github/workflows/playwright.yml` により、以下のタイミングで自動テストが実行されます：
 
-- `main`, `master`, `develop` ブランチへのプッシュ時
-- 上記ブランチへのプルリクエスト時
+- `main` ブランチへのプッシュ時
+- `main` ブランチへのプルリクエスト時
 
 テスト結果はArtifactとして保存され、失敗時の詳細を確認できます。
+ワークフローファイルには日本語の詳細なコメントが含まれており、CI/CDの仕組みを理解しやすくなっています。
 
 ## 📚 学習ポイント
 
 このデモを通じて以下を学ぶことができます：
 
 1. **基本的なE2Eテスト**: ページの読み込みとエラーがないことの確認
-2. **UI操作のテスト**: タブクリックのテスト
-3. **エラー検出**: JavaScriptエラーの自動検出
+2. **エラー検出の分離**: ページ読み込み時とユーザー操作時のエラーを別々にテスト
+3. **日本語でのテスト記述**: テスト名やメッセージを日本語で記述する方法
 4. **CI/CD統合**: GitHub Actionsでの自動テスト実行
 
-## 💡 次のステップ
+## 🌐 対応ブラウザ
 
-より複雑なテストを実装したい場合は以下を検討してみてください：
+Playwrightの設定により、以下のブラウザでテストが実行されます：
 
-- APIモックを使用したテスト
-- 複数ページにまたがるユーザージャーニーテスト
-- アクセシビリティテスト
-- パフォーマンステスト
-- ビジュアルリグレッションテスト
+- Chromium (Chrome/Edge)
+- Firefox
+- WebKit (Safari)
 
-## 🤝 貢献
+## 💡 記事との対応
 
-このデモプロジェクトへの改善提案やバグ報告は、GitHubのIssueやPull Requestでお願いします。
-
-## 📄 ライセンス
-
-MIT License
+このデモプロジェクトは、E2Eテスト入門記事の実践例として作成されています。
+記事で説明されている「画面を開いてエラーが無いことを確認するテスト」を実装しており、
+実際のプロジェクトでの活用方法を示しています。
