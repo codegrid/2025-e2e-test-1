@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwrightデモ - About</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>このデモについて</h1>
+        <p>このデモアプリケーションは、Playwrightを使ったE2Eテストの学習用に作成されました。</p>
+
+        <section class="content">
+            <h2>目的</h2>
+            <ul>
+                <li>シンプルなWebページでのE2Eテストの基本を学ぶ</li>
+                <li>JavaScriptエラーの検出テストを実装する</li>
+                <li>GitHub Actions CIでの自動テストを体験する</li>
+            </ul>
+
+            <h2>技術スタック</h2>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>Vanilla JavaScript</li>
+                <li>Playwright</li>
+                <li>GitHub Actions</li>
+            </ul>
+        </section>
+
+        <section class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="info1">概要</button>
+                <button class="tab-button" data-tab="info2">特徴</button>
+                <button class="tab-button" data-tab="info3">使い方</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="info1" class="tab-panel active">
+                    <h3>概要</h3>
+                    <p>このデモでは、基本的なタブ切り替え機能を持つ3つのページを用意しています。</p>
+                </div>
+                <div id="info2" class="tab-panel">
+                    <h3>特徴</h3>
+                    <p>各ページで共通のJavaScriptファイルを使用し、一貫したUI操作を提供します。</p>
+                </div>
+                <div id="info3" class="tab-panel">
+                    <h3>使い方</h3>
+                    <p>ナビゲーションメニューから各ページに移動し、タブ機能を試してみてください。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Playwrightデモアプリ</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
