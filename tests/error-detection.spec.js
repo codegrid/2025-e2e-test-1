@@ -23,7 +23,7 @@ test.describe('JavaScriptエラー検出テスト', () => {
       {name: 'Contact', url: '/contact.html'}
     ];
 
-    for (const {name, url} of pages) {
+    for (const { url} of pages) {
       await page.goto(url);
       await page.waitForLoadState('networkidle');
 
