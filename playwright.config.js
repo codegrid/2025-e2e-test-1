@@ -1,11 +1,11 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+const { defineConfig, devices } = require("@playwright/test");
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* 並列でテストを実行 */
   fullyParallel: true,
   /* CI環境でのみテストが失敗した場合の再実行 */
@@ -15,50 +15,38 @@ module.exports = defineConfig({
   /* 並列実行するワーカーの数 */
   workers: process.env.CI ? 1 : undefined,
   /* レポーターの設定 */
-  reporter: 'html',
+  reporter: "html",
   /* 全テストで共通する設定 */
   use: {
     /* ベースURL - ローカルサーバーのURL */
-    baseURL: 'http://localhost:3000',
+    baseURL: "http://localhost:3000",
     /* アクション実行時のスクリーンショット */
-    screenshot: 'only-on-failure',
+    screenshot: "only-on-failure",
     /* テスト実行時のビデオ録画 */
-    video: 'retain-on-failure',
+    video: "retain-on-failure",
     /* トレース収集（失敗時のみ） */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
 
   /* テスト対象のブラウザを設定 */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
-
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
-
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
-
-    /* モバイルブラウザのテスト */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
   ],
 
   /* テスト実行前にローカルサーバーを起動 */
   webServer: {
-    command: 'npx http-server -p 3000',
+    command: "npx http-server -p 3000",
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },
