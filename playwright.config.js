@@ -46,7 +46,7 @@ module.exports = defineConfig({
 
   /* テスト実行前にローカルサーバーを起動 */
   webServer: {
-    command: "npx http-server -p 3000",
+    command: "npx http-server public -p 3000",
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },

@@ -17,16 +17,17 @@
 
 ```
 playwright-demo/
-├── index.html                     # ホームページ
-├── about.html                     # このサイトについてページ  
-├── contact.html                   # お問い合わせページ
-├── styles.css                     # 共通スタイル
-├── script.js                      # タブ切り替え機能のJavaScript
-├── package.json                   # npm設定
-├── playwright.config.js           # Playwright設定
+├── public/                        # フロントエンドファイル
+│   ├── index.html                 # ホームページ
+│   ├── about.html                 # このサイトについてページ  
+│   ├── contact.html               # お問い合わせページ
+│   ├── styles.css                 # 共通スタイル
+│   └── script.js                  # タブ切り替え機能のJavaScript
 ├── tests/                         # テストファイル
 │   ├── page-load-errors.spec.js   # ページ読み込み時のエラーチェック
 │   └── tab-interaction-errors.spec.js # タブ操作時のエラーチェック
+├── package.json                   # npm設定
+├── playwright.config.js           # Playwright設定
 └── .github/workflows/
     └── playwright.yml             # GitHub Actions設定（日本語コメント付き）
 ```
