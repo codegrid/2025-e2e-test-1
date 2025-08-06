@@ -1,7 +1,0 @@
-{
-  "name": "2025-e2e-test-1",
-  "compatibility_date": "2025-08-01",
-  "assets": {
-    "directory": "./dist/*"
-  }
-}

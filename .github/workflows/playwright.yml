@@ -1,6 +1,7 @@
 # Playwright E2Eテスト自動実行ワークフロー
 # このワークフローは、mainブランチへのpushやPull Request時に
 # 自動的にPlaywrightテストを実行し、結果をレポートとして保存します
+# また、GitHub Pagesにpublicディレクトリとテスト結果（playwright-report）をデプロイします
 name: Playwright Tests
 
 # ワークフローが実行されるトリガー条件を定義
@@ -11,6 +12,11 @@ on:
   # mainブランチに向けたPull Requestが作成・更新された時に実行
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   # テスト実行ジョブの定義
@@ -41,13 +47,18 @@ jobs:
       # Step 5: 実際のPlaywrightテストを実行
       # package.jsonのtestスクリプト（playwright test）を実行
       - name: Run Playwright tests
-        run: npm run test
+        run: npx playwright test
 
       # Step 6: publicディレクトリとテスト結果を統合
       - name: Run Build for Cloudflare
-        run : npm run build-for-cf
+        run : npm run build-for-pages
 
-      # Step 7: distディレクトリをアーティファクトとして保存
+      # Step 7: GitHub Pagesの設定
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        if: always()
+
+      # Step 8: distディレクトリをアーティファクトとして保存
       # テストが成功・失敗に関わらず（if: always()）レポートを保存
       - uses: actions/upload-artifact@v4
         if: always()  # テスト結果に関係なく常に実行
@@ -56,10 +67,15 @@ jobs:
           path: dist/          # レポートファイルのパス
           retention-days: 30   # レポートの保存期間（30日間）
 
-      # Step 8: Cloudflare Workersにデプロイ
-      - name: Publish to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+      # Step 9: GitHub Pagesにアーティファクトをアップロード
+      - name: Upload Artifacts to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        if: always()
         with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: publish
+          path: ./dist
+
+      # Step 10: GitHub Pagesにデプロイ
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        if: always()
