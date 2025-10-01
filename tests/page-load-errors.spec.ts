@@ -1,31 +1,31 @@
-const { test, expect } = require("@playwright/test");
+import { test, expect } from '@playwright/test';
 
-test.describe("ページ読み込み時のエラーチェック", () => {
+test.describe('ページ読み込み時のエラーチェック', () => {
   const pages = [
-    { name: "ホーム", url: "/" },
-    { name: "このサイトについて", url: "/about.html" },
-    { name: "お問い合わせ", url: "/contact.html" },
+    { name: 'ホーム', url: '/' },
+    { name: 'このサイトについて', url: '/about.html' },
+    { name: 'お問い合わせ', url: '/contact.html' },
   ];
 
   pages.forEach(({ name, url }) => {
     test(`${name}ページの読み込み時にエラーが発生しないこと`, async ({ page }) => {
-      const errors = [];
+      const errors: string[] = [];
 
       // コンソールエラーを収集
-      page.on("console", (msg) => {
-        if (msg.type() === "error") {
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') {
           errors.push(msg.text());
         }
       });
 
       // ページエラーを収集
-      page.on("pageerror", (error) => {
+      page.on('pageerror', (error: Error) => {
         errors.push(error.message);
       });
 
       // ページを読み込む
       await page.goto(url);
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState('networkidle');
 
       // エラーがないことを確認
       expect(errors).toHaveLength(0);
@@ -35,3 +35,4 @@ test.describe("ページ読み込み時のエラーチェック", () => {
     });
   });
 });
+
