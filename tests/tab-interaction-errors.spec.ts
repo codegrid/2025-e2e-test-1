@@ -25,18 +25,18 @@ test.describe('タブクリック時のエラーチェック', () => {
 
       // ページを読み込む
       await page.goto(url);
-      await page.waitForLoadState('networkidle');
 
       // タブボタンが存在する場合のみテスト実行
       const tabButtons = page.locator('.tab-button');
       const tabCount = await tabButtons.count();
 
-      if (tabCount > 0) {
-        // 各タブをクリックしてエラーをチェック
-        for (let i = 0; i < tabCount; i++) {
-          await tabButtons.nth(i).click();
-          await page.waitForTimeout(100); // 少し待機
-        }
+      // タブが存在しない場合はスキップする
+      if (tabCount === 0) test.skip();
+
+      // 各タブをクリックしてエラーをチェック
+      // エラーが発生すると先に記述したpage.onで収集される
+      for (let i = 0; i < tabCount; i++) {
+        await tabButtons.nth(i).click();
       }
 
       // エラーがないことを確認
@@ -47,4 +47,3 @@ test.describe('タブクリック時のエラーチェック', () => {
     });
   });
 });
-

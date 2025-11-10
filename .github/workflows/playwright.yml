@@ -1,4 +1,4 @@
-# Playwright E2Eテスト自動実行ワークフロー
+# Playwrightスモークテスト自動実行ワークフロー
 # このワークフローは、mainブランチへのpushやPull Request時に
 # 自動的にPlaywrightテストを実行し、結果をレポートとして保存します
 # また、GitHub Pagesにpublicディレクトリとテスト結果（playwright-report）をデプロイします
@@ -40,9 +40,8 @@ jobs:
         run: npm ci
 
       # Step 4: Playwrightブラウザと必要な依存関係をインストール
-      # --with-depsオプションでシステムレベルの依存関係も同時にインストール
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       # Step 5: 実際のPlaywrightテストを実行
       # package.jsonのtestスクリプト（playwright test）を実行
@@ -50,7 +49,7 @@ jobs:
         run: npx playwright test
 
       # Step 6: publicディレクトリとテスト結果を統合
-      - name: Run Build for Cloudflare
+      - name: Run Build for GitHub Pages
         run : npm run build-for-pages
 
       # Step 7: GitHub Pagesの設定

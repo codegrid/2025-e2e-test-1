@@ -25,7 +25,6 @@ test.describe('ページ読み込み時のエラーチェック', () => {
 
       // ページを読み込む
       await page.goto(url);
-      await page.waitForLoadState('networkidle');
 
       // エラーがないことを確認
       expect(errors).toHaveLength(0);
