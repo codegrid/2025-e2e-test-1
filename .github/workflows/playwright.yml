@@ -21,8 +21,6 @@ permissions:
 jobs:
   # テスト実行ジョブの定義
   test:
-    # ジョブの最大実行時間を60分に設定（長時間のテストでもタイムアウトを防ぐ）
-    timeout-minutes: 60
     # Ubuntu最新版の仮想環境でテストを実行
     runs-on: ubuntu-latest
 
