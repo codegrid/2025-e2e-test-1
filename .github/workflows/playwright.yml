@@ -41,7 +41,7 @@ jobs:
 
       # Step 4: Playwrightブラウザと必要な依存関係をインストール
       - name: Install Playwright Browsers
-        run: npx playwright install
+        run: npx playwright install --with-deps
 
       # Step 5: 実際のPlaywrightテストを実行
       # package.jsonのtestスクリプト（playwright test）を実行
