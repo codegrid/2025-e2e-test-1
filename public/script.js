@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // クリックされたボタンにactiveクラスを追加
       this.classList.add("active");
+      console.error('疑似エラー: タブがクリックされました。');
 
       // 対応するパネルにactiveクラスを追加
       const targetPanel = document.getElementById(targetTab);
