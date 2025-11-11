@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // 対応するパネルにactiveクラスを追加
       const targetPanel = document.getElementById(targetTab);
       targetPanel.classList.add("active");
+
+      console.log('hoge');
     });
   });
 });
