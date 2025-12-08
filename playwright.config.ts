@@ -9,8 +9,6 @@ export default defineConfig({
   reporter: [['html', { open: 'on-failure' }]],
   use: {
     baseURL: 'http://localhost:3000',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
     trace: 'on-first-retry',
   },
 
@@ -32,7 +30,6 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npx http-server public -p 3000',
-    port: 3000,
+    command: 'npm run serve',
   },
 });
