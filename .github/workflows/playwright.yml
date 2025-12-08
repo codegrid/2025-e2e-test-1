@@ -44,7 +44,7 @@ jobs:
       # Step 5: 実際のPlaywrightテストを実行
       # package.jsonのtestスクリプト（playwright test）を実行
       - name: Run Playwright tests
-        run: npm run test
+        run: npx playwright test
 
       # Step 6: publicディレクトリとテスト結果を統合
       - name: Run Build for GitHub Pages
