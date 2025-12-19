@@ -30,6 +30,6 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npx http-server public -p 3000',
+    command: 'npm run serve',
   },
 });
