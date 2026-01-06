@@ -1,7 +1,5 @@
-# Playwrightスモークテスト自動実行ワークフロー（キャッシュパターン2: package-lock.jsonハッシュ版）
-# package-lock.jsonのハッシュをキャッシュキーに使用するパターン
-# メリット: jqコマンド不要、シンプル
-# デメリット: 他のパッケージ更新時もキャッシュが無効化される
+# Playwrightスモークテスト自動実行ワークフロー
+# package-lock.jsonのハッシュをキャッシュキーに使用する
 name: Playwright Tests (Cache v2 - lockfile hash)
 
 on:
