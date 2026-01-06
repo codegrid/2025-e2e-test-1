@@ -38,14 +38,9 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-      # Step 5: Playwrightブラウザと必要な依存関係をインストール（キャッシュがない場合のみ）
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npm run install-playwright
-
       # Step 6: システム依存関係をインストール（キャッシュ復元時も必要）
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install-deps
 
       # Step 7: 実際のPlaywrightテストを実行
