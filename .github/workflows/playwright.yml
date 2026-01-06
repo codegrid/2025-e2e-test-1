@@ -37,6 +37,8 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
 
       # Step 6: システム依存関係をインストール（キャッシュ復元時も必要）
       - name: Install Playwright system dependencies
