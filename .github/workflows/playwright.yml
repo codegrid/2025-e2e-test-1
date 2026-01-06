@@ -1,15 +1,12 @@
-# Playwrightスモークテスト自動実行ワークフロー
-# このワークフローは、mainブランチへのpushやPull Request時に
-# 自動的にPlaywrightテストを実行し、結果をレポートとして保存します
-# また、GitHub Pagesにpublicディレクトリとテスト結果（playwright-report）をデプロイします
-name: Playwright Tests
+# Playwrightスモークテスト自動実行ワークフロー（キャッシュパターン2: package-lock.jsonハッシュ版）
+# package-lock.jsonのハッシュをキャッシュキーに使用するパターン
+# メリット: jqコマンド不要、シンプル
+# デメリット: 他のパッケージ更新時もキャッシュが無効化される
+name: Playwright Tests (Cache v2 - lockfile hash)
 
-# ワークフローが実行されるトリガー条件を定義
 on:
-  # mainブランチにpushされた時に実行
   push:
     branches: [main]
-  # mainブランチに向けたPull Requestが作成・更新された時に実行
   pull_request:
     branches: [main]
 
@@ -19,13 +16,11 @@ permissions:
   id-token: write
 
 jobs:
-  # テスト実行ジョブの定義
   test:
-    # Ubuntu最新版の仮想環境でテストを実行
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: リポジトリのコードをチェックアウト（ダウンロード）
+      # Step 1: リポジトリのコードをチェックアウト
       - uses: actions/checkout@v4
 
       # Step 2: Node.jsの環境をセットアップ
@@ -37,41 +32,53 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Playwrightブラウザと必要な依存関係をインストール
+      # Step 4: Playwrightブラウザのキャッシュを復元（package-lock.jsonハッシュ版）
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      # Step 5: Playwrightブラウザと必要な依存関係をインストール（キャッシュがない場合のみ）
       - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npm run install-playwright
 
-      # Step 5: 実際のPlaywrightテストを実行
-      # package.jsonのtestスクリプト（playwright test）を実行
+      # Step 6: システム依存関係をインストール（キャッシュ復元時も必要）
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
+
+      # Step 7: 実際のPlaywrightテストを実行
       - name: Run Playwright tests
         run: npx playwright test
 
-      # Step 6: publicディレクトリとテスト結果を統合
+      # Step 8: publicディレクトリとテスト結果を統合
       - name: Run Build for GitHub Pages
-        run : npm run build-for-pages
+        run: npm run build-for-pages
 
-      # Step 7: GitHub Pagesの設定
+      # Step 9: GitHub Pagesの設定
       - name: Setup Pages
         uses: actions/configure-pages@v5
         if: always()
 
-      # Step 8: distディレクトリをアーティファクトとして保存
-      # テストが成功・失敗に関わらず（if: always()）レポートを保存
+      # Step 10: distディレクトリをアーティファクトとして保存
       - uses: actions/upload-artifact@v4
-        if: always()  # テスト結果に関係なく常に実行
+        if: always()
         with:
-          name: dist           # アーティファクトの名前
-          path: dist/          # レポートファイルのパス
-          retention-days: 30   # レポートの保存期間（30日間）
+          name: dist
+          path: dist/
+          retention-days: 30
 
-      # Step 9: GitHub Pagesにアーティファクトをアップロード
+      # Step 11: GitHub Pagesにアーティファクトをアップロード
       - name: Upload Artifacts to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
           path: ./dist
 
-      # Step 10: GitHub Pagesにデプロイ
+      # Step 12: GitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
