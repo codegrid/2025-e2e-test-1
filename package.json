@@ -2,24 +2,12 @@
   "name": "playwright-demo",
   "version": "1.0.0",
   "description": "PlaywrightでE2Eテストを学ぶためのデモアプリケーション",
-  "main": "index.js",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:ui": "playwright test --ui",
-    "test:debug": "playwright test --debug",
     "serve": "http-server public -p 3000",
     "build-for-pages": "mkdir -p dist && cp -r public/* dist/ && cp -r playwright-report dist/playwright-report"
   },
-  "keywords": [
-    "playwright",
-    "e2e",
-    "testing",
-    "demo",
-    "tutorial"
-  ],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.55.1",
     "http-server": "^14.1.1"
