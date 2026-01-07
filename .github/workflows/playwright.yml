@@ -19,9 +19,7 @@ jobs:
     # Playwright公式Dockerイメージ: ブラウザとシステム依存関係がプリインストール済み
     container:
       image: mcr.microsoft.com/playwright:v1.55.1-noble
-      # Firefox起動のため、HOMEディレクトリを/rootに設定（コンテナ内で適切な権限を持つ）
-      env:
-        HOME: /root
+      options: --user 1001
 
     steps:
       # Step 1: リポジトリのコードをチェックアウト
