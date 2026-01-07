@@ -1,6 +1,6 @@
 # Playwrightスモークテスト自動実行ワークフロー
-# package-lock.jsonのハッシュをキャッシュキーに使用する
-name: Playwright Tests (Cache v2 - lockfile hash)
+# Playwright公式Dockerイメージを使用してブラウザとシステム依存関係のインストールを省略
+name: Playwright Tests (Docker)
 
 on:
   push:
@@ -16,48 +16,33 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # Playwright公式Dockerイメージ: ブラウザとシステム依存関係がプリインストール済み
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
 
     steps:
       # Step 1: リポジトリのコードをチェックアウト
       - uses: actions/checkout@v4
 
-      # Step 2: Node.jsの環境をセットアップ
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      # Step 3: package.jsonに定義された依存関係をインストール
+      # Step 2: package.jsonに定義された依存関係をインストール
+      # Note: Dockerイメージに Node.js が含まれているため setup-node は不要
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Playwrightブラウザのキャッシュを復元
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            playwright-${{ runner.os }}-
-
-      # Step 6: Playwrightシステム依存関係をインストール
-      - name: Install Playwright system dependencies
-        run: npm run install-playwright
-
-      # Step 7: Playwrightテストを実行
+      # Step 3: Playwrightテストを実行
       - name: Run Playwright tests
         run: npm run test
 
-      # Step 8: publicディレクトリとテスト結果を統合
+      # Step 4: publicディレクトリとテスト結果を統合
       - name: Run Build for GitHub Pages
         run: npm run build-for-pages
 
-      # Step 9: GitHub Pagesの設定
+      # Step 5: GitHub Pagesの設定
       - name: Setup Pages
         uses: actions/configure-pages@v5
         if: always()
 
-      # Step 10: distディレクトリをアーティファクトとして保存
+      # Step 6: distディレクトリをアーティファクトとして保存
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -65,14 +50,14 @@ jobs:
           path: dist/
           retention-days: 30
 
-      # Step 11: GitHub Pagesにアーティファクトをアップロード
+      # Step 7: GitHub Pagesにアーティファクトをアップロード
       - name: Upload Artifacts to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
           path: ./dist
 
-      # Step 12: GitHub Pagesにデプロイ
+      # Step 8: GitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
