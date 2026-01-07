@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     # Playwright公式Dockerイメージ: ブラウザとシステム依存関係がプリインストール済み
     container:
-      image: mcr.microsoft.com/playwright:v1.55.1-noble
+      image: mcr.microsoft.com/playwright:v1.57.0-noble
 
     steps:
       # Step 1: リポジトリのコードをチェックアウト
