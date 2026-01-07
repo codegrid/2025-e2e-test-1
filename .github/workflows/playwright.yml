@@ -19,6 +19,7 @@ jobs:
     # Playwright公式Dockerイメージ: ブラウザとシステム依存関係がプリインストール済み
     container:
       image: mcr.microsoft.com/playwright:v1.55.1-noble
+      options: --ipc=host
 
     steps:
       # Step 1: リポジトリのコードをチェックアウト
