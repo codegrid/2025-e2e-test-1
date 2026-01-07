@@ -30,21 +30,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Playwrightブラウザのキャッシュを復元（package-lock.jsonハッシュ版）
+      # Step 4: Playwrightブラウザのキャッシュを復元
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            playwright-browsers-${{ runner.os }}-
+            playwright-${{ runner.os }}-
 
-      # Step 6: システム依存関係をインストール（キャッシュ復元時も必要）
+      # Step 6: Playwrightシステム依存関係をインストール
       - name: Install Playwright system dependencies
         run: npm run install-playwright
 
-      # Step 7: 実際のPlaywrightテストを実行
+      # Step 7: Playwrightテストを実行
       - name: Run Playwright tests
         run: npm run test
 
