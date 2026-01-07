@@ -37,13 +37,13 @@ playwright-demo/
 ### 1. 依存関係のインストール
 
 ```bash
-npm install
+npm i
 ```
 
 ### 2. Playwrightブラウザのインストール
 
 ```bash
-npm run install-playwright
+npm init playwright@latest
 ```
 
 ### 3. 開発サーバーの起動
@@ -66,18 +66,6 @@ npm test
 
 ```bash
 npm run test:headed
-```
-
-### インタラクティブなテストUI
-
-```bash
-npm run test:ui
-```
-
-### デバッグモード
-
-```bash
-npm run test:debug
 ```
 
 ## 📝 実装されているテスト
