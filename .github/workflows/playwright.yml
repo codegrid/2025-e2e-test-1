@@ -42,12 +42,11 @@ jobs:
 
       # Step 6: システム依存関係をインストール（キャッシュ復元時も必要）
       - name: Install Playwright system dependencies
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
+        run: npm run install-playwright
 
       # Step 7: 実際のPlaywrightテストを実行
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npm playwright test
 
       # Step 8: publicディレクトリとテスト結果を統合
       - name: Run Build for GitHub Pages
