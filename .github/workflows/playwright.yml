@@ -1,15 +1,10 @@
 # Playwrightスモークテスト自動実行ワークフロー
-# このワークフローは、mainブランチへのpushやPull Request時に
-# 自動的にPlaywrightテストを実行し、結果をレポートとして保存します
-# また、GitHub Pagesにpublicディレクトリとテスト結果（playwright-report）をデプロイします
-name: Playwright Tests
+# Playwright公式Dockerイメージを使用してブラウザとシステム依存関係のインストールを省略
+name: Playwright Tests (Docker)
 
-# ワークフローが実行されるトリガー条件を定義
 on:
-  # mainブランチにpushされた時に実行
   push:
     branches: [main]
-  # mainブランチに向けたPull Requestが作成・更新された時に実行
   pull_request:
     branches: [main]
 
@@ -19,59 +14,51 @@ permissions:
   id-token: write
 
 jobs:
-  # テスト実行ジョブの定義
   test:
-    # Ubuntu最新版の仮想環境でテストを実行
     runs-on: ubuntu-latest
+    # Playwright公式Dockerイメージ: ブラウザとシステム依存関係がプリインストール済み
+    container:
+      image: mcr.microsoft.com/playwright:v1.55.1-noble
+      options: --user 1001
 
     steps:
-      # Step 1: リポジトリのコードをチェックアウト（ダウンロード）
+      # Step 1: リポジトリのコードをチェックアウト
       - uses: actions/checkout@v4
 
-      # Step 2: Node.jsの環境をセットアップ
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      # Step 3: package.jsonに定義された依存関係をインストール
+      # Step 2: package.jsonに定義された依存関係をインストール
+      # Note: Dockerイメージに Node.js が含まれているため setup-node は不要
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Playwrightブラウザと必要な依存関係をインストール
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      # Step 5: 実際のPlaywrightテストを実行
-      # package.jsonのtestスクリプト（playwright test）を実行
+      # Step 3: Playwrightテストを実行
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npm run test
 
-      # Step 6: publicディレクトリとテスト結果を統合
+      # Step 4: publicディレクトリとテスト結果を統合
       - name: Run Build for GitHub Pages
-        run : npm run build-for-pages
+        run: npm run build-for-pages
 
-      # Step 7: GitHub Pagesの設定
+      # Step 5: GitHub Pagesの設定
       - name: Setup Pages
         uses: actions/configure-pages@v5
         if: always()
 
-      # Step 8: distディレクトリをアーティファクトとして保存
-      # テストが成功・失敗に関わらず（if: always()）レポートを保存
+      # Step 6: distディレクトリをアーティファクトとして保存
       - uses: actions/upload-artifact@v4
-        if: always()  # テスト結果に関係なく常に実行
+        if: always()
         with:
-          name: dist           # アーティファクトの名前
-          path: dist/          # レポートファイルのパス
-          retention-days: 30   # レポートの保存期間（30日間）
+          name: dist
+          path: dist/
+          retention-days: 30
 
-      # Step 9: GitHub Pagesにアーティファクトをアップロード
+      # Step 7: GitHub Pagesにアーティファクトをアップロード
       - name: Upload Artifacts to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
           path: ./dist
 
-      # Step 10: GitHub Pagesにデプロイ
+      # Step 8: GitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
